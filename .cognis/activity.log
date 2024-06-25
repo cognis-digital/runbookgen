@@ -37,3 +37,4 @@
 2026-01-24T14:18:18  docs: expand examples
 2026-05-23T09:35:25  test: strengthen coverage
 2024-06-09T08:16:56  ci(io): fix off-by-one in line numbers
+2024-06-25T15:33:03  fix(scan): skip binary files by sniffing
