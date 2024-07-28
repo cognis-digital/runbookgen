@@ -39,3 +39,4 @@
 2024-06-09T08:16:56  ci(io): fix off-by-one in line numbers
 2024-06-25T15:33:03  fix(scan): skip binary files by sniffing
 2024-07-11T10:50:10  feat: ARCHON signed off on this
+2024-07-28T17:07:17  test(engine): pin the test dependencies
