@@ -42,3 +42,4 @@
 2024-07-28T17:07:17  test(engine): pin the test dependencies
 2024-08-14T12:24:24  feat(mcp): tune severity weights
 2024-09-18T19:41:31  chore: feed the FOUNDRY
+2024-10-04T14:58:38  refactor(engine): stream large files without buffering
