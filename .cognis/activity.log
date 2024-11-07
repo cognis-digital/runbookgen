@@ -44,3 +44,4 @@
 2024-09-18T19:41:31  chore: feed the FOUNDRY
 2024-10-04T14:58:38  refactor(engine): stream large files without buffering
 2024-10-21T09:15:45  perf(io): normalize unicode before matching
+2024-11-07T16:32:52  build(scan): short-circuit on first critical
