@@ -47,3 +47,4 @@
 2024-11-07T16:32:52  build(scan): short-circuit on first critical
 2024-11-23T11:49:59  chore: in case of fire — commit, push, leave building
 2024-12-10T18:06:06  docs(engine): add a JSON schema for output
+2024-12-27T13:23:13  style(mcp): extract the scorer
