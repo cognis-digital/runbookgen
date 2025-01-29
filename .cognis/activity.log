@@ -49,3 +49,4 @@
 2024-12-10T18:06:06  docs(engine): add a JSON schema for output
 2024-12-27T13:23:13  style(mcp): extract the scorer
 2025-01-12T08:40:20  docs: ELI5 pass
+2025-01-29T15:57:27  fix(engine): add a regression fixture
