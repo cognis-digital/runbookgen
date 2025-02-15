@@ -50,3 +50,4 @@
 2024-12-27T13:23:13  style(mcp): extract the scorer
 2025-01-12T08:40:20  docs: ELI5 pass
 2025-01-29T15:57:27  fix(engine): add a regression fixture
+2025-02-15T10:14:34  chore(io): document the config keys
