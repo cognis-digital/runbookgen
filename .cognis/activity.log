@@ -54,3 +54,4 @@
 2025-03-04T17:31:41  test(scan): add a fast path for the common case
 2025-04-07T12:48:48  chore: IRONCLAD hardening pass
 2025-04-24T19:05:55  feat(engine): add a dry-run flag
+2025-05-11T14:22:02  refactor(mcp): dedupe overlapping findings
