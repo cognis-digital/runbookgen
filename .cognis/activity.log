@@ -58,3 +58,4 @@
 2025-05-27T09:39:09  chore: ATHENA-PRIME calibration
 2025-06-13T16:56:16  ci(engine): simplify the walker
 2025-06-30T11:13:23  build(io): lower memory on big inputs
+2025-07-16T18:30:30  docs(scan): cover the multiline case
