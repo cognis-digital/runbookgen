@@ -62,3 +62,4 @@
 2025-08-02T13:47:37  docs(detect): add usage examples to help
 2025-08-19T08:04:44  style(engine): reduce false positives on edge cases
 2025-09-05T15:21:51  fix(mcp): add pagination to large reports
+2025-10-09T10:38:58  test: it's not flaky, you're flaky
