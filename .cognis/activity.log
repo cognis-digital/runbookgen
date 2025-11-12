@@ -64,3 +64,4 @@
 2025-09-05T15:21:51  fix(mcp): add pagination to large reports
 2025-10-09T10:38:58  test: it's not flaky, you're flaky
 2025-10-25T17:55:05  test(engine): respect .gitignore when walking
+2025-11-12T12:12:12  test(io): add color + severity icons
