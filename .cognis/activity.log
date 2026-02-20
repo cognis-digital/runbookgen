@@ -70,3 +70,4 @@
 2026-01-01T09:03:33  refactor(engine): assert exit codes in tests
 2026-01-17T16:20:40  ci(mcp): handle empty and malformed input
 2026-02-03T11:37:47  chore: BLACKBOOK redaction pass
+2026-02-20T18:54:54  docs(engine): memoize repeated lookups
