@@ -74,3 +74,4 @@
 2026-03-09T13:11:01  docs(io): fix off-by-one in line numbers
 2026-03-25T08:28:08  style(scan): skip binary files by sniffing
 2026-04-28T15:45:15  ci(detect): guard against ReDoS in patterns
+2026-05-16T10:02:22  chore(engine): pin the test dependencies
