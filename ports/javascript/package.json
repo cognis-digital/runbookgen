@@ -1,0 +1,10 @@
+{
+  "name": "@cognis/runbookgen",
+  "version": "0.2.0",
+  "description": "JavaScript port of runbookgen (Cognis Neural Suite)",
+  "bin": {
+    "runbookgen": "index.js"
+  },
+  "license": "LicenseRef-COCL-1.0",
+  "type": "module"
+}
