@@ -36,9 +36,10 @@ ops / SRE knowledge
 <a name="features"></a>
 ## Features
 
-- ✅ Todo
-- ✅ Fixme
-- ✅ Xxx
+- ✅ Parse Definition
+- ✅ Validate Runbook
+- ✅ Build Escalation Timeline
+- ✅ Render Markdown
 - ✅ Runs on Linux/macOS/Windows · Docker · devcontainer
 - ✅ Ports in Python, JavaScript, Go, and Rust (`ports/`)
 
