@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: runbookgen, labels: { app: runbookgen } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: runbookgen } }
+  template:
+    metadata: { labels: { app: runbookgen } }
+    spec:
+      containers:
+        - name: runbookgen
+          image: ghcr.io/cognis-digital/runbookgen:latest
+          ports: [{ containerPort: 8000 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: runbookgen }
+spec:
+  selector: { app: runbookgen }
+  ports: [{ port: 80, targetPort: 8000 }]
