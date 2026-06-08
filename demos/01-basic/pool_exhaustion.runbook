@@ -1,0 +1,42 @@
+title: Orders API - Postgres connection pool exhausted
+severity: SEV1
+service: orders-api
+owner_team: payments-platform
+summary: Checkout 5xx spike caused by the orders-api Postgres connection pool running dry under load.
+
+symptoms:
+  - 5xx rate on POST /checkout exceeds 2% for 5 minutes
+  - Latency p99 on /checkout > 3s
+  - Application logs show 'remaining connection slots are reserved'
+
+detection:
+  - PagerDuty alert 'orders-api-5xx-high' (Datadog monitor 12345)
+  - Grafana dashboard 'orders-api / db pool' shows in_use == max
+
+steps:
+  - Confirm pool saturation in Grafana | owner=on-call | expect=in_use equals max_connections
+  - Check for a slow-query/lock storm in pg_stat_activity | owner=on-call | expect=identify long-running or idle-in-transaction queries
+  - Terminate idle-in-transaction sessions older than 5m | owner=on-call | expect=free slots return, in_use drops below max
+  - If saturation persists, scale the pgbouncer pool_size by +25% | owner=db-oncall | expect=available slots increase, 5xx rate falls
+  - Roll the orders-api deployment to reset leaked connections | owner=on-call | expect=connection count resets to baseline
+
+verification:
+  - 5xx rate on /checkout back under 0.5% for 10 minutes
+  - db pool in_use sits comfortably below max during peak
+
+rollback:
+  - Revert pgbouncer pool_size change once primary DB CPU is under 60%
+  - If a bad deploy caused the leak, roll back to the previous release tag
+
+escalation:
+  - Primary on-call: payments-platform rotation (PagerDuty)
+  - Secondary: DB on-call rotation
+  - Incident Commander: payments-platform EM
+
+communication:
+  - Post initial status-page update within ack SLA
+  - Update #incident-orders Slack channel every 15 minutes
+
+references:
+  - https://wiki.example.com/orders-api/db-pool
+  - Postgres docs: max_connections and connection slots
