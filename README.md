@@ -16,7 +16,7 @@
 </div>
 
 ```bash
-pip install cognis-runbookgen
+pip install "git+https://github.com/cognis-digital/runbookgen.git"
 runbookgen scan .            # → prioritized findings in seconds
 ```
 
@@ -49,7 +49,7 @@ ops / SRE knowledge
 ## Quick start
 
 ```bash
-pip install cognis-runbookgen
+pip install "git+https://github.com/cognis-digital/runbookgen.git"
 runbookgen --version
 runbookgen scan .                       # scan current project
 runbookgen scan . --format json         # machine-readable
