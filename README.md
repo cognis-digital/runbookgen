@@ -20,6 +20,12 @@ pip install "git+https://github.com/cognis-digital/runbookgen.git"
 runbookgen scan .            # → prioritized findings in seconds
 ```
 
+<!-- cognis:layman:start -->
+## What is this?
+
+runbookgen turns a simple text description of an IT incident or procedure into a complete, structured runbook — a step-by-step response guide your team can follow when something breaks. You write a short definition file (title, severity, steps), and the tool instantly produces a formatted Markdown document with escalation timelines, verification steps, and a rollback plan. It is aimed at site reliability engineers, IT operations teams, and anyone responsible for keeping services running who wants consistent, repeatable incident response without manually maintaining Word documents or wiki pages.
+<!-- cognis:layman:end -->
+
 ## Contents
 
 - [Why runbookgen?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
@@ -46,6 +52,42 @@ ops / SRE knowledge
 <div align="right"><a href="#top">↑ back to top</a></div>
 
 <a name="quick-start"></a>
+<!-- cognis:install:start -->
+## Install
+
+`runbookgen` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/runbookgen/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/runbookgen/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/runbookgen.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/runbookgen.git"  # uv
+pip install "git+https://github.com/cognis-digital/runbookgen.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/runbookgen.git
+cd runbookgen && pip install .
+```
+
+Then run:
+```sh
+runbookgen --help
+```
+<!-- cognis:install:end -->
+
 ## Quick start
 
 ```bash
