@@ -20,6 +20,40 @@ pip install cognis-runbookgen
 runbookgen scan .            # → prioritized findings in seconds
 ```
 
+## Usage — step by step
+
+1. **Install** (Python 3.9+):
+
+   ```bash
+   pip install runbookgen            # or: pipx install runbookgen
+   ```
+
+2. **Validate a definition** before rendering, to catch missing fields early:
+
+   ```bash
+   runbookgen validate incident.yaml
+   ```
+
+3. **Generate the runbook** from the definition (use `-` to read from stdin):
+
+   ```bash
+   runbookgen generate incident.yaml > runbook.md
+   ```
+
+4. **Inspect the escalation timeline** derived from the same definition:
+
+   ```bash
+   runbookgen timeline incident.yaml
+   ```
+
+5. **Read the result.** `generate` writes the rendered runbook to stdout; `validate` reports completeness problems and exits non-zero when the definition is incomplete, so it doubles as a gate.
+
+6. **Wire it into CI.** Validate on every change and regenerate the published runbook:
+
+   ```bash
+   runbookgen validate incident.yaml && runbookgen generate incident.yaml > docs/runbook.md
+   ```
+
 ## Contents
 
 - [Why runbookgen?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
