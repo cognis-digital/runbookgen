@@ -34,3 +34,6 @@ runbookgen = "runbookgen.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["runbookgen"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
