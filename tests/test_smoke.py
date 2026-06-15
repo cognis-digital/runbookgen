@@ -156,5 +156,96 @@ class TestCLI(unittest.TestCase):
         self.assertTrue(len(data["timeline"]) >= 4)
 
 
+class TestHardening(unittest.TestCase):
+    """Tests for input validation, error handling, and edge-case paths."""
+
+    def _run(self, argv):
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            code = main(argv)
+        return code, buf.getvalue()
+
+    # --- core: empty step action raises cleanly ----------------------------------
+
+    def test_empty_step_action_raises(self):
+        """A step that starts with '|' has no action — should raise RunbookError."""
+        text = "title: t\nseverity: SEV3\nsteps:\n  - | owner=me\n"
+        with self.assertRaises(RunbookError) as ctx:
+            parse_definition(text)
+        self.assertIn("empty action", str(ctx.exception))
+
+    # --- core: whitespace-only / comment-only input raises cleanly ---------------
+
+    def test_blank_input_raises_missing_title(self):
+        """Empty/whitespace-only definition must raise RunbookError, not AttributeError."""
+        for text in ("", "   \n", "# just a comment\n"):
+            with self.subTest(text=repr(text)):
+                with self.assertRaises(RunbookError) as ctx:
+                    parse_definition(text)
+                self.assertIn("title", str(ctx.exception))
+
+    # --- core: missing severity raises cleanly -----------------------------------
+
+    def test_missing_severity_raises(self):
+        with self.assertRaises(RunbookError) as ctx:
+            parse_definition("title: x\n")
+        self.assertIn("severity", str(ctx.exception))
+
+    # --- CLI: missing file returns exit code 1 with message to stderr ------------
+
+    def test_missing_file_stderr_message(self):
+        import io as _io
+        stderr_buf = _io.StringIO()
+        with redirect_stdout(_io.StringIO()):
+            old_err, sys.stderr = sys.stderr, stderr_buf
+            try:
+                code = main(["generate", "/no/such/path/file.runbook"])
+            finally:
+                sys.stderr = old_err
+        self.assertEqual(code, 1)
+        self.assertIn("file not found", stderr_buf.getvalue())
+
+    # --- CLI: binary/non-UTF-8 file returns exit code 1 -------------------------
+
+    def test_binary_file_returns_one(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".runbook") as fh:
+            fh.write(b"\xff\xfe binary garbage \x00\x01\x02")
+            path = fh.name
+        try:
+            code, _ = self._run(["generate", path])
+            self.assertEqual(code, 1)
+        finally:
+            os.unlink(path)
+
+    # --- mcp_server: module imports cleanly with correct API ---------------------
+
+    def test_mcp_server_imports(self):
+        """mcp_server must import without ImportError (the broken scan/to_json refs are fixed)."""
+        import runbookgen.mcp_server as mod
+        self.assertTrue(callable(mod.serve))
+
+    # --- webhook: URL validation -------------------------------------------------
+
+    def test_webhook_rejects_bad_url(self):
+        """webhook.main() must reject non-http(s) URLs with exit code 2."""
+        import sys as _sys
+        import io as _io
+        from integrations.webhook import main as wh_main
+
+        old_argv, _sys.argv = _sys.argv, ["webhook.py", "--url", "ftp://example.com"]
+        old_stdin, _sys.stdin = _sys.stdin, _io.TextIOWrapper(_io.BytesIO(b"{}"))
+        stderr_buf = _io.StringIO()
+        old_err, _sys.stderr = _sys.stderr, stderr_buf
+        try:
+            code = wh_main()
+        finally:
+            _sys.argv = old_argv
+            _sys.stdin = old_stdin
+            _sys.stderr = old_err
+        self.assertEqual(code, 2)
+        self.assertIn("http", stderr_buf.getvalue())
+
+
 if __name__ == "__main__":
     unittest.main()

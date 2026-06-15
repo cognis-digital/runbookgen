@@ -26,8 +26,11 @@ from runbookgen.core import (
 
 def _read(path: str) -> str:
     if path == "-":
-        return sys.stdin.read()
-    with open(path, "r", encoding="utf-8") as fh:
+        try:
+            return sys.stdin.read()
+        except UnicodeDecodeError as exc:
+            raise OSError(f"stdin contains invalid UTF-8: {exc}") from exc
+    with open(path, "r", encoding="utf-8", errors="strict") as fh:
         return fh.read()
 
 
@@ -117,6 +120,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
     except FileNotFoundError as exc:
         print(f"error: file not found: {exc.filename}", file=sys.stderr)
+        return 1
+    except PermissionError as exc:
+        print(f"error: permission denied: {exc.filename}", file=sys.stderr)
+        return 1
+    except UnicodeDecodeError as exc:
+        print(f"error: file is not valid UTF-8 ({exc})", file=sys.stderr)
         return 1
     except OSError as exc:
         print(f"error: {exc}", file=sys.stderr)

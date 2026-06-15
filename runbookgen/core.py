@@ -138,6 +138,10 @@ def _split_step(raw: str) -> Step:
     """A step line: 'action | owner=... | expect=...'. Only action required."""
     parts = [p.strip() for p in raw.split("|")]
     action = parts[0]
+    if not action:
+        raise RunbookError(
+            "step has an empty action; every step must begin with a non-empty description"
+        )
     owner = "on-call"
     expected = ""
     for extra in parts[1:]:
