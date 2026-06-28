@@ -1,0 +1,18 @@
+$ runbookgen-emit --help
+
+usage: runbookgen [-h] [--version] [--format {table,json}]
+                  {generate,validate,timeline} ...
+
+Incident runbook and SOP generator from templates.
+
+positional arguments:
+  {generate,validate,timeline}
+    generate            render a runbook from a definition
+    validate            check a definition for completeness
+    timeline            print the escalation timeline
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+                        output format (default: table)

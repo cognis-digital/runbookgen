@@ -1,0 +1,3 @@
+$ runbookgen-emit --version
+
+runbookgen 1.0.0

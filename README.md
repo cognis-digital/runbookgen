@@ -20,6 +20,64 @@ pip install cognis-runbookgen
 runbookgen scan .            # → prioritized findings in seconds
 ```
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ runbookgen-emit --version
+runbookgen 1.0.0
+```
+
+```console
+$ runbookgen-emit --help
+usage: runbookgen [-h] [--version] [--format {table,json}]
+                  {generate,validate,timeline} ...
+
+Incident runbook and SOP generator from templates.
+
+positional arguments:
+  {generate,validate,timeline}
+    generate            render a runbook from a definition
+    validate            check a definition for completeness
+    timeline            print the escalation timeline
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+                        output format (default: table)
+```
+
+> Blocks above are real `runbookgen` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"findings": [
+    {
+        "id": "1234567890",
+        "title": "Suspicious Network Traffic",
+        "description": "Network traffic from unknown IP address",
+        "severity": "medium",
+        "created_at": "2023-02-15T14:30:00Z"
+    },
+    {
+        "id": "2345678901",
+        "title": "Malware Detection",
+        "description": "Malware detected on system XYZ",
+        "severity": "high",
+        "created_at": "2023-02-16T10:45:00Z"
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. **Install** (Python 3.9+):
